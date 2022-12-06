@@ -2,16 +2,16 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import lombok.Getter;
 import lombok.Setter;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
+import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
-public class GeographicRegion extends PanacheEntity {
-
+public class GeographicRegion{
+    @Id
+    @GeneratedValue
+    private Long id;
     private String name;
     private String region;
     private String subRegion;
@@ -24,9 +24,5 @@ public class GeographicRegion extends PanacheEntity {
     @JsonBackReference
     private GeographicRegion parentRegion;
 
-
-    public static GeographicRegion findByName(String name){
-        return find("name", name).firstResult();
-    }
 
 }

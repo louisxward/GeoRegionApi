@@ -13,13 +13,14 @@ import javax.inject.Inject;
 public class GeographicRegionResource {
     @Inject
     private GeographicRegionRepository geographicRegionRepository;
+
     @GET
     public List<GeographicRegion> list() {
-        return GeographicRegion.listAll();
+        return geographicRegionRepository.listAll();
     }
 
     public GeographicRegion findByName(String name) {
-        return GeographicRegion.findByName(name);
+        return geographicRegionRepository.findByName(name);
     }
 
 }

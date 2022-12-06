@@ -1,11 +1,7 @@
-
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.test.junit.QuarkusTest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -19,39 +15,39 @@ import java.net.http.HttpResponse;
 public class GeographicRegionImport {
 
         @Inject
-        private GeographicRegionResource geographicRegionResource;
+        private GeographicRegionRepository geographicRegionRepository;
 
         @Test
         @Transactional
         public void createRegions(){
-                for(GeographicRegion region : geographicRegionResource.list()){
+                for(GeographicRegion region : geographicRegionRepository.listAll()){
                         System.out.println("---------");
                         System.out.println(region.getName());
-                        GeographicRegion parentRegion = geographicRegionResource.findByName(region.getRegion());
-                        GeographicRegion parentSubRegion = geographicRegionResource.findByName(region.getSubRegion());
+                        GeographicRegion parentRegion = geographicRegionRepository.findByName(region.getRegion());
+                        GeographicRegion parentSubRegion = geographicRegionRepository.findByName(region.getSubRegion());
                         if(region.getRegion() != null && parentRegion == null){
                                 System.out.println("Create Parent Region");
                                 parentRegion = new GeographicRegion();
                                 parentRegion.setName(region.getRegion());
-                                parentRegion.persist();
+                                geographicRegionRepository.persist(parentRegion);
                         }
                         if(region.getSubRegion() != null && parentSubRegion == null){
                                 System.out.println("Create Sub Region");
                                 parentSubRegion = new GeographicRegion();
                                 parentSubRegion.setName(region.getSubRegion());
                                 parentSubRegion.setParentRegion(parentRegion);
-                                parentSubRegion.persist();
+                                geographicRegionRepository.persist(parentSubRegion);
                         }
                         if(parentSubRegion != null){
                                 System.out.println("Set Region to Sub Region");
                                 region.setParentRegion(parentSubRegion);
-                                parentSubRegion.persist();
+                                geographicRegionRepository.persist(parentSubRegion);
                         }
                         else if(parentRegion != null){
                                 System.out.println("Set Region to Main Region");
                                 region.setParentRegion(parentRegion);
                         }
-                        region.persist();
+                        geographicRegionRepository.persist(region);
                 }
         }
 
@@ -63,7 +59,7 @@ public class GeographicRegionImport {
                 GeographicRegion geographicRegion = new GeographicRegion();
                 geographicRegion.setName("Oceania");
                 geographicRegion.setRegion("Oceania");
-                geographicRegion.persist();
+                geographicRegionRepository.persist(geographicRegion);
         }
         @Test
         @Transactional
@@ -96,7 +92,7 @@ public class GeographicRegionImport {
                         } catch (Exception e){
                                 System.out.println("No Currency");
                         }
-                        geographicRegion.persist();
+                        geographicRegionRepository.persist(geographicRegion);
                 }
         }
 
