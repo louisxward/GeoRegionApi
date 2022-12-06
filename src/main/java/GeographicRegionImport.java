@@ -51,8 +51,6 @@ public class GeographicRegionImport {
                 }
         }
 
-
-
         @Test
         @Transactional
         public void addOne() {
@@ -61,13 +59,6 @@ public class GeographicRegionImport {
                 geographicRegion.setRegion("Oceania");
                 geographicRegionRepository.persist(geographicRegion);
         }
-
-//        @Test
-//        public void list() {
-//                System.out.println(geographicRegionRepository.findByName2("Oceania"));
-//                //System.out.println(geographicRegionRepository.findTreeById(251L));
-//        }
-
 
         @Test
         @Transactional
@@ -103,6 +94,5 @@ public class GeographicRegionImport {
                         geographicRegionRepository.persist(geographicRegion);
                 }
         }
-
 }
 

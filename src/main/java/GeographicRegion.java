@@ -1,3 +1,4 @@
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import lombok.Getter;
@@ -12,6 +13,7 @@ public class GeographicRegion{
     @Id
     @GeneratedValue
     private Long id;
+    @Column(nullable = false)
     private String name;
     private String region;
     private String subRegion;
@@ -21,8 +23,5 @@ public class GeographicRegion{
     private String currency;
     @ManyToOne
     @JoinColumn(name = "parent_region_id")
-    @JsonBackReference
     private GeographicRegion parentRegion;
-
-
 }
