@@ -61,6 +61,14 @@ public class GeographicRegionImport {
                 geographicRegion.setRegion("Oceania");
                 geographicRegionRepository.persist(geographicRegion);
         }
+
+//        @Test
+//        public void list() {
+//                System.out.println(geographicRegionRepository.findByName2("Oceania"));
+//                //System.out.println(geographicRegionRepository.findTreeById(251L));
+//        }
+
+
         @Test
         @Transactional
         public void callRegionApi() throws IOException, InterruptedException {
