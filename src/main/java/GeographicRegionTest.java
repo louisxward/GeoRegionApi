@@ -21,8 +21,14 @@ public class GeographicRegionTest {
 
         @Test
         public void testFindByName(){
-                GeographicRegion result = geographicRegionRepository.findById(1L);
-                System.out.println(result.getParentRegion().getParentRegion().getName());
+                GeographicRegion result = geographicRegionRepository.findByName("Micronesia");
+                System.out.println(result.getId() + " " + result.getName());
+        }
+
+        @Test
+        public void testFindParentRegionByName(){
+                GeographicRegion result = geographicRegionRepository.findParentRegionByName("Micronesia");
+                System.out.println(result.getId() + " " + result.getName());
         }
 }
 

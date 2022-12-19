@@ -9,4 +9,8 @@ public class GeographicRegionRepository  implements PanacheRepository<Geographic
         return find("name", name).firstResult();
     }
 
+    public GeographicRegion findParentRegionByName(String name){
+        return find("name = ?1 and region = null", name).firstResult();
+    }
+
 }

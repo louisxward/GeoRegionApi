@@ -35,4 +35,6 @@ public class GeographicRegionResource {
         return geographicRegionRepository.list("parent_region_id", id);
     }
 
+
+
 }

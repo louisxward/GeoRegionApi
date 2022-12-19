@@ -24,4 +24,6 @@ public class GeographicRegion{
     @ManyToOne
     @JoinColumn(name = "parent_region_id")
     private GeographicRegion parentRegion;
+
+
 }

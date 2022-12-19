@@ -23,8 +23,8 @@ public class GeographicRegionImport {
                 for(GeographicRegion region : geographicRegionRepository.listAll()){
                         System.out.println("---------");
                         System.out.println(region.getName());
-                        GeographicRegion parentRegion = geographicRegionRepository.findByName(region.getRegion());
-                        GeographicRegion parentSubRegion = geographicRegionRepository.findByName(region.getSubRegion());
+                        GeographicRegion parentRegion = geographicRegionRepository.findParentRegionByName(region.getRegion());
+                        GeographicRegion parentSubRegion = geographicRegionRepository.findParentRegionByName(region.getSubRegion());
                         if(region.getRegion() != null && parentRegion == null){
                                 System.out.println("Create Parent Region");
                                 parentRegion = new GeographicRegion();
@@ -53,16 +53,7 @@ public class GeographicRegionImport {
 
         @Test
         @Transactional
-        public void addOne() {
-                GeographicRegion geographicRegion = new GeographicRegion();
-                geographicRegion.setName("Oceania");
-                geographicRegion.setRegion("Oceania");
-                geographicRegionRepository.persist(geographicRegion);
-        }
-
-        @Test
-        @Transactional
-        public void callRegionApi() throws IOException, InterruptedException {
+        public void importRegionsFromApi() throws IOException, InterruptedException {
                 var client = HttpClient.newHttpClient();
                 var request = HttpRequest.newBuilder(
                                 URI.create("https://restcountries.com/v3.1/all"))
